@@ -16,18 +16,25 @@ function App() {
   }
 
   const handleAddNumber = (number) => {
-    setCurrentNumber(prev => `${prev === '0' ? '' : prev}${number}`)
+    setCurrentNumber(prev => { 
+      if (prev === "0") {
+        return number
+      } else {
+        return `${prev}${number}`
+      }
+    })
     console.log(currentNumber)
   }
 
   const handleSumNumbers= () => {
-    if(firstNumber === '0'){
+    if(firstNumber === '0' || firstNumber === ''){
       setFirstNumber(String(currentNumber));
-      setCurrentNumber('0');
+      setCurrentNumber('');
       setOperation('+');
-    }else{
+    } else {
       const sum = Number(firstNumber) + Number(currentNumber)
       setCurrentNumber(String(sum))
+      setFirstNumber('')
       setOperation('');
     }
   }
@@ -65,8 +72,8 @@ function App() {
         <Row>
           <Button label="x" onClick={() => handleAddNumber('x')}/>
           <Button label="/" onClick={() => handleAddNumber('/')}/>
-          <Button label="C" onClick={() => handleOnClear()}/>
-          <Button label="X" onClick={() => handleAddNumber('X')}/>
+          <Button label="C" onClick={handleOnClear}/>
+          <Button label="*" onClick={() => ({})}/>
         </Row>
         <Row>
           <Button label="7" onClick={() => handleAddNumber('7')}/>
@@ -84,7 +91,7 @@ function App() {
           <Button label="1" onClick={() => handleAddNumber('1')}/>
           <Button label="2" onClick={() => handleAddNumber('2')}/>
           <Button label="3" onClick={() => handleAddNumber('3')}/>
-          <Button label="=" onClick={handleEquals()}/>
+          <Button label="=" onClick={handleEquals}/>
         </Row>
       </Content>
     </Container>
